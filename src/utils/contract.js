@@ -65,7 +65,7 @@ const Buy = async() => {
 }
 
 
-const StakeNFT = async() => {
+const StakeNFT = async(inviteCode,ownerCode) => {
   await window.ethereum.request({ method: 'eth_requestAccounts' });
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
@@ -74,7 +74,7 @@ const StakeNFT = async() => {
     Stake.abi,
     signer
   )
-  var res =  await c.stakeNFT('03125f0798586755da7976cb34bd4f959afa790db8eae632323110857d232e3dee','03933d1cf714b6302b834c05ecf25dd69838f94e5dca5fd764883ca2772f3dafd9',1)
+  var res =  await c.stakeNFT(inviteCode,ownerCode,1)
   return await res.wait()
 }
 

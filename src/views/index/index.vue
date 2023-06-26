@@ -13,6 +13,36 @@
     <van-button type="primary" @click="AppoveNFT" v-if="show">授权NFT</van-button>
     
     <br><br>
+
+    <div class="title"> 
+        <van-cell-group  class="content1">
+            <van-field
+                v-model="inviteCode"
+                label-align = 'left'
+                input-align="right"
+                type="text"
+                label="邀请人"
+                placeholder = '邀请人code'
+               
+            />
+        </van-cell-group>
+    </div>
+
+
+    <div class="title"> 
+        <van-cell-group  class="content1">
+            <van-field
+                v-model="ownerCode"
+                label-align = 'left'
+                input-align="right"
+                type="text"
+                label="自己"
+                placeholder = '输入自己的code/ID'
+               
+            />
+        </van-cell-group>
+    </div>
+
     <van-button type="primary" @click="StakeNFT" v-if="show">质押NFT</van-button>
     <br><br>
 
@@ -40,11 +70,13 @@ export default {
   data() {
     return {
       show:true,
+      ownerCode:'',
+      inviteCode:'',
     };
   }, async mounted() {
     const res = await connectToWallet()
     if(res == 1 ) {
-      Toast('请链接BSC网络');
+      Toast('请链接polygon网络');
       this.show = false
     }
   },
@@ -62,7 +94,8 @@ export default {
       await Buy()
     },
     async StakeNFT(){
-      await StakeNFT()
+      // console.log(this.inviteCode,this.ownerCode)
+      await StakeNFT(this.inviteCode,this.ownerCode)
     },
     async claimToken(){
       await claimToken()
@@ -80,13 +113,14 @@ export default {
   height: 100%;
 }
 .title{
-    width: 100%;
+    width: 60%;
     min-height: 24px;
-    font-size: 24px;
+    font-size: 12px;
     font-family: Microsoft YaHei;
     font-weight: bold;
     color: #000000; 
     line-height: 26px;
+    margin: auto;
     // margin-left: 0.9rem;
 }
 .wen{
